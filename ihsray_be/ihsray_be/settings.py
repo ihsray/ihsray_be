@@ -36,7 +36,10 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles",
+    # "django.contrib.staticfiles",
+    "rest_framework",
+    "corsheaders",
+    "main"
 ]
 
 MIDDLEWARE = [
@@ -47,6 +50,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "ihsray_be.urls"
@@ -117,7 +121,41 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
+STATICFILES_DIRS=[
+    BASE_DIR/'static'
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# CORS_ALLOWED_ORIGINS = [
+#     "https://yourfrontend.vercel.app",  # Replace with your React frontend URL
+# ]
+
+CORS_ALLOW_ALL_ORIGINS = True  
+
+CORS_ALLOW_CREDENTIALS = True 
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny", 
+    ],
+}
+
+
+# Session settings
+# SESSION_ENGINE = "django.contrib.sessions.backends.db"
+# SESSION_COOKIE_HTTPONLY = True 
+# SESSION_COOKIE_SAMESITE = "None"  
+# SESSION_COOKIE_SECURE = True 
+# SESSION_COOKIE_AGE = 86400
+# SESSION_SAVE_EVERY_REQUEST = False
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
