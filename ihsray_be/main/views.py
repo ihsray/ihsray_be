@@ -126,7 +126,7 @@ class LandingPageAPIView(APIView):
                 "men_subcategories": men_subcategories_serializer.data,
                 "women_subcategories": women_subcategories_serializer.data,
                 "kids_subcategories": kids_subcategories_serializer.data,
-                "video_link_serializer": video_link_serializer.data
+                "video_link": video_link_serializer.data
             }
         }
         return Response(response_data, status=status.HTTP_200_OK)
