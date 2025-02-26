@@ -1,0 +1,27 @@
+runtime: custom
+
+entrypoint: gunicorn -b :$PORT ihsray_be.wsgi
+
+env: flex
+
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 3
+
+handlers:
+  - url: /static
+    static_dir: staticfiles/
+
+  - url: /.*
+    script: auto
+
+env_variables:
+  DJANGO_SETTINGS_MODULE: "ihsray_be.settings"
+  SECRET_KEY: "django-insecure-h6_850^et=2^c0ekp1x^cym+=mib)h(yml$y9lp!dffte%h#+a"
+  DEBUG: "True"
+
+resources:
+  cpu: 1
+  memory_gb: 1
+  disk_size_gb: 10
+
