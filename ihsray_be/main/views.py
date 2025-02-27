@@ -143,8 +143,20 @@ class ProductListCreateView(generics.ListCreateAPIView):
     search_fields = ['name']
     pagination_class = CustomPagination
 
-    def list(self, request, *args, **kwargs):
+    def get_paginated_response(self, data):
+        return Response({
+            "status": "true",
+            "message": "Products retrieved successfully",
+            "statusCode": "000",
+            "data": {
+                "count": self.paginator.page.paginator.count,
+                "next": self.paginator.get_next_link(),
+                "previous": self.paginator.get_previous_link(),
+                "results": data
+            }
+        }, status=status.HTTP_200_OK)
 
+    def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         page = self.paginate_queryset(queryset)
 
