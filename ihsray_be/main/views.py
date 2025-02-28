@@ -15,17 +15,17 @@ from rest_framework import status
 @method_decorator(csrf_exempt, name='dispatch')
 class AdminLoginView(APIView):
     def post(self, request):
-        admin_name = request.data.get("admin_name")
+        username = request.data.get("username")
         password = request.data.get("password")
 
-        if not admin_name or not password:
+        if not username or not password:
             return Response({
                 "status": "false", 
                 "message": "Both fields are required", 
                 "statusCode": "001"
                 }, status=status.HTTP_400_BAD_REQUEST)
 
-        admin = get_object_or_404(Admin, admin_name=admin_name)
+        admin = get_object_or_404(Admin, username=username)
 
         if not admin.check_password(password):
             return Response({
